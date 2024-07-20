@@ -1,22 +1,29 @@
+// this code is only customized to work on my fingers' emg signal 
+// the code will need customization for each person
 #include <Servo.h>
+// Create servo objects for the 5 servos
 Servo servo1;
 Servo servo2;
 Servo servo3;
 Servo servo4;
 Servo servo5;
 
-const int servoPin1 = 8;
-const int servoPin2 = 9;
-const int servoPin3 = 10;
-const int servoPin4 = 11;
-const int servoPin5 = 12;
 void setup() {
   Serial.begin(9600);
-  servo1.attach(servoPin1);
-  servo2.attach(servoPin2);
-  servo3.attach(servoPin3);
-  servo4.attach(servoPin4);
-  servo5.attach(servoPin5);
+  servo1.attach(2);
+  servo2.attach(3);
+  servo3.attach(4);
+  servo4.attach(5);
+  servo5.attach(6);
+
+  servo1.write(180);
+  servo2.write(180);
+  servo3.write(180);
+  servo4.write(0);
+  servo5.write(0);
+
+  // Optional: Add a delay to allow the servos to reach the starting position
+  delay(1000);
 }
 
 void loop() {
@@ -25,23 +32,45 @@ void loop() {
     Serial.println(data);  // Echo the received data
 
     // Convert the received data to a float
-    float value = data.toFloat() / 1000.0;
+    float value = data.toFloat();
 
-    // Check if the value is greater than 2
-    if (value > 3.0) {
-     servo1.write(90);
-     servo2.write(90);
-     servo3.write(90);
-     servo4.write(90);
-     servo5.write(90);
-  delay(1000); // wait for a second
-
+    if (value > 3.0 & value < 3.5) {
+      servo2.write(0);
+      delay(1000);
+    } else if (value > 2.0 & value < 2.5) {
+      servo5.write(180);
+      delay(1000);
+    } else if (value > 1.6 & value < 2.0) {
+      servo4.write(135);
+      delay(1000);
+    } else if (value > 2.5 & value < 3.0) {
+      servo3.write(40);
+      delay(1000);
+    } else if (value > 1.45 & value < 1.6) {
+      servo1.write(40);
+      delay(1000);
+    } else if (value > 3.5) {
+      servo1.write(40);
+      servo2.write(0);
+      servo3.write(40);
+      servo4.write(135);
+      servo5.write(180);
+      delay(2000);
     } else {
-       servo1.write(0);
-     servo2.write(0);
-     servo3.write(0);
-     servo4.write(0);
-     servo5.write(0);
+     servo1.write(180);
+  servo2.write(180);
+  servo3.write(180);
+  servo4.write(0);
+  servo5.write(0);
+  delay(20);
     }
+
+  } else {
+    servo1.write(180);
+  servo2.write(180);
+  servo3.write(180);
+  servo4.write(0);
+  servo5.write(0);
+  delay(20);
   }
 }
