@@ -150,30 +150,3 @@ feat = jfemg('zc', X);
 | 03  | `'vare'`     | Variance of EMG                              | -                       |
 | 02  | `'wa'`       | Willison Amplitude                           | opts.thres = 0.01       |
 | 01  | `'mfl'`      | Maximum Fractal Length                       | -                       |
-
-
-## Cite As
-```code 
-@article{too2019classification,
-  title={Classification of hand movements based on discrete wavelet transform and enhanced feature extraction},
-  author={Too, Jingwei and Abdullah, Abdul Rahim and Saad, Norhashimah Mohd},
-  journal={International Journal of Advanced Computer Science and Applications},
-  volume={10},
-  number={6},
-  pages={83--89},
-  year={2019}
-}
-
-
-@article{too2019emg,
-  title={EMG feature selection and classification using a Pbest-guide binary particle swarm optimization},
-  author={Too, Jingwei and Abdullah, Abdul Rahim and Mohd Saad, Norhashimah and Tee, Weihown},
-  journal={Computation},
-  volume={7},
-  number={1},
-  pages={12},
-  year={2019},
-  publisher={Multidisciplinary Digital Publishing Institute}
-}
-```
-
