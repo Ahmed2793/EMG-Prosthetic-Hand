@@ -1,127 +1,155 @@
-# EMG-Prosthetic-Hand
+# Hand-Movement-Classification-based-on-EMG-Signals-using-Machine-learning-and-Deep-learning
 
-# Digital-Lock-with-VHDL-state-machine
+## Project Implementation
+Our project was executed in two primary ways: machine learning and deep learning. Each 
+pathway made a distinct contribution to our study. Upon completing the implementation, we could 
+thoroughly analyse the outcomes and draw conclusions regarding which approach best complemented 
+our study and yielded the most accurate results.
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About The Project</a></li>  
-    <li><a href="#how-it-works">How it works</a></li> 
-    <li><a href="#software-requirements">Software Requirements</a></li>      
-    <li><a href="#software-implementation">Software implementation</a></li>
-    <li><a href="#results">Results</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-    <li><a href="#contact">Contact</a></li>
-       
-  </ol>
-</details>
+The overall process started with the EMG data collected from the MYO Thalmic bracelet. 
+Where, each class data was recorded. Then our EMG data were processed using different methods. 
+Features were extracted using various functions, and lastly, data was fed to the different ML & DL
+classifiers for evaluation and testing.
+
+The whole process including preprocessing, feature extraction, and testing was implemented 
+using Python. Python was a great option due to its large sets of libraries, such as the Numpy, Pandas, 
+and Matplotlib used in our machine learning experiment.
 
 
-## About the project
-
-This project is about creating a VHDL module and a test bench for a digital lock with state machine.
-The lock's features include :  
-* Password verification
-* Password modification
-* Alarm system
-
-## How it works:
--The Lock Code is a 4-digit number  
--The user enters a combination on the keyboard of the device and presses the "Validate" key  
-* If the code entered is true the lock will wait until the user releases the "Validate" button to open.
-        * The lock remains open for a few seconds before closing automatically
-        * If the code is not the one registered, the lock will not open.
-        * If the code is entered 3 times and is wrong then an alarm signal goes off and does not stop until a true code is entered
-  * The user has the possibility to change his password:  
-    * He presses the “conf” button then must enter the previous code correctly then presses the validate button.
-    * If the code entered is correct, the user then enters the new code and presses the validate button to confirm. So the code is changed
- ### the keypad:
- 
-![image](https://user-images.githubusercontent.com/86969450/136088391-8bf5b69a-6752-4e1e-96b8-43fc8b2b5da5.png)
-  
-
- * Each button is represented by a code of two vectors of 4 bits. the vectors represent the row and column of each button.
-
-## Software Requirements:
-
-Xilinx ISE suite 14.7 (or higher)
+## EMG dataset:
+Obtaining raw data can be very difficult and time-consuming. Fortunately, in our study, we 
+were lucky enough to be shared with analytics-ready data that we can utilize effectively. To record the 
+signals MYO Thalmic bracelet was used, it is designed to be worn on the user’s forearm, next to a PC 
+with a Bluetooth receiver (Sojan, 2020). This armband is designed with no less than 8 sensors 
+surrounding the forearm that can capture the myographic signals. Soon to be transferred to the PC 
+through the Bluetooth interface.
 
 
-## Software implementation:
-### Behavioral module: 
-* You can find the well commented behavioral module [here](https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/src/main%20.vhd)
-### Testbench: 
-* You can find the Testbench [here](https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/src/testbench%20.vhd)
-
-## Results:
-Now let's check our simulation results:
-
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20config%20-0.PNG">
-</p>
-
-let's go to the explanation : 
-
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20config%20-1.PNG">
-</p>
-The user pushed the configuration button to enter the password configuration mode .  
-
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20config%20-2.PNG">
-</p>
-Now the user types the previous password , for security check, by pushing consecutively 4 buttons on the keyPad .
-
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20config%20-3.PNG">
-</p>
-Now the user Presses the validate button to confirm the password .
+In our research, the EMG data provided was mined from 36 subjects. Every subject was asked 
+to perform several static hand gestures for two rounds. Each round held six-seven basic gestures that 
+can be characterised as hand in rest, hand clenched in a fist, wrist flexion, wrist extension, radial 
+deviation, ulnar deviation, and extended palm (not performed by all subjects). Every gesture was 
+carried out for 3 seconds along with a 3 seconds pause gap in between gestures (Sojan, 2020). Our 
+dataset consisted of 11 columns, with the first column representing time in milliseconds (ms), followed 
+by columns 2-8 representing the channels (EMG channels of MYO Thalmic armband), column 10 
+denoting label of gestures, and lastly, the label column referring to the subject who took over the 
+gesture.
 
 
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20config%20-5.PNG">
-</p>
+## Machine Learning-Based Classification:
 
-All is set now the user types the new password then he confirms by pushing the validate button.
+We settled on 4 different supervised ML classifiers that could perform well in terms of gesture 
+classification. The Support-vector machine, k-nearest Neighbours Algorithm, Decision Tree, and 
+Random Forest. These classifiers were preferred for comparison, based on several performance metrics 
+such as accuracy, and precision.
 
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20config%20-6.PNG">
-</p>
+SVM is one of the algorithms that is frequently preferred for classification use, such as body 
+movements, images, texts and handwriting, time series, and medical predictions. (Toledo-Perez et al., 
+2019). It is a branch of supervised learning algorithms, that helps in minimizing structural risk and 
+includes statistical learning theories (SENTURK & BAKAY, 2021). SVM mainly works by finding an 
+optimal hyperplane that is separated into a highly-dimensional feature space. (Kaczmarek et al., 2019) 
+This can be achieved by mapping entries using non-linear functions. This allows SVM to effectively 
+differentiate between two or more types of objects. Also, SVM offers several Kernels that are 
+exponential, radial, and polynomial functions. Its ability to handle non-linear functions through Kernel 
+functions makes it easy to capture complex patterns in EMG data. For EMG hand gesture 
+classification, polynomial is one suitable function used as Kernel.
 
-Now we test our new password to check whether it changed successfully or not .
+k-NN is also a supervised learning algorithm that is widely used for classification and 
+regression functions. It functions based on the principle of similarity where neighbours have 
+contributions based on their distance. The most essential parameter stands to be the k, which holds the 
+value of the number of neighbours (SENTURK & BAKAY, 2021). Its mechanism revolves around 
+calculating the distance between the test sample and the training sample and then choosing the knearest training samples to the test samples, then finally classifying them into the class with the highest probability (AlOmari & Liu, 2014). It is common to find k-NN algorithms in the fields of pattern recognition, recommendation systems, anomaly detection, and image and text classification. Lastly, KNN provides a fluent non-parametric process for assigning class labels to input patterns based on the 
+class labels represented by the k (Rasheed et al., 2006).
 
 
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%201st%20test.PNG">
-</p>
+DT defines a supervised learning algorithm that works by taking an input, a table for example 
+and recursively dividing the table into sub-tables and so improving the purity score of the column 
+“label” in each partition. Therefore, the more the proportion of one class, the purer the collection stands 
+to be (Yeturu, 2020). DT is constantly used to classify biomedical signals; the instances get sorted from 
+the root to some leaf node, and the attributes of the instances get tested and directed to a sub-node, each 
+branch denotes an outcome of the test, and each leaf holds a class label (Keleş & Subaşı, n.d). After 
+checking all attributes and their values, the target values of the new instance can be defined. DT 
+provides further advantages such as requiring minimal data preparation and strong performance even 
+on big datasets (Kraslawski & Turunen, 2013).
 
-password is correct ! All is in order, The door opens and remains so , for some 13 seconds. 
+RF is a classification technique that can be described as an ensemble of decision trees (Zhou et 
+al., 2019). Whereas decision trees tend to know how to classify a given instance of data, random forests 
+tend to bootstrap and choose the best prediction. Meaning that each tree in the random forest generates 
+a class prediction, and the class that wins with the highest number of “votes” happens to become our 
+model’s prediction (Kundu, 2021). Using random forests, trees protect each other from pursuing 
+individual mistakes, although some trees are incorrect, many turn out right, therefore as a group, the 
+trees are headed to move in the right direction. For this specific reason, uncorrelated models can 
+conduct more accurate ensemble prediction, than any other individual prediction (Kundu, 2021). 
 
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%202st%20test.PNG">
-</p>
-Now let's type a wrong password : nothing happens and the door remains closed.
+## Deep Learning-Based Classification:
+Developing a deep learning-based classification system for hand and finger movement 
+classification using EMG signals involves several steps. First, the data needs to be preprocessed, which 
+may include filtering, normalization, and segmentation. Feature extraction is then performed to extract 
+relevant information from the EMG signal. This may involve using time-domain or frequency-domain 
+features, or a combination of both (Vasanthi SM, Jayasree T.). Model design is the next step, where a 
+neural network architecture is selected and configured. Depending on the type of neural network, the 
+architecture may include Dense layers, recurrent layers, or a combination of both. Finally, the model is 
+fine-tuned using training data, and the performance of the model is evaluated using testing data(R. B. 
+Azhiri, M. Esmaeili and M. Nourani,).
+
+There are different types of neural network models that can be used for this task. Convolutional 
+neural networks (CNNs) have been shown to be effective in capturing spatio-temporal patterns in EMG 
+signals. However, it shows a good result when the dataset is images. Since our data set is a set of 
+numbers, CNN was not a good choice. So we used an artificial neural network to classify the EMG 
+signals.
+
+Artificial neural network (ANN) is a computational model inspired by the structure and 
+function of biological neurons in the brain (Christodoulou & Pattichis 1999). It consists of a large 
+number of interconnected nodes or neurons that are organized into layers. Each neuron receives input 
+18
+signals from other neurons or external sources, performs a computation on these inputs, and produces 
+an output signal that is transmitted to other neurons or output nodes (Saeed et al. 2021).
+
+ANNs are good at working with classifying EMG signals because they can learn to extract 
+useful features from complex and high-dimensional data (Aqsa Saeed Qureshi, Asifullah Khan, Aneela 
+Zameer, Anila Usman), such as the time-varying signals generated by muscle activity. ANNs can 
+automatically learn to recognize patterns, correlations, and relationships in the data, and use this 
+knowledge to make accurate predictions or classifications.
+
+In the case of EMG signal classification, ANNs can be trained to recognize different hand and 
+finger movements based on the patterns of muscle activity captured by the EMG sensors. The ANNs 
+can learn to extract relevant features from the raw EMG signals, and use these features to classify the 
+movements into different categories, such as grasping, pointing, or pinching(W. Mo, Y. Huang, S. 
+Zhang, E. Ip, D. C. Kilper, Y. Aono, and T. Tajima). ANNs can also be used to classify EMG signals in 
+real-time, allowing for the control of prosthetic devices or human-computer interfaces in a seamless 
+and natural way.
+
+## Work Implementation for Machine Learning
+## Preprocessing:
+Preprocessing stands to be a very crucial step in data processing, it is significant because it 
+allows us to focus on our study and its desired outcome. Neglecting the preprocessing stage misguides 
+the analysis from succeeding and achieving its main objective. Preprocessing is the process of 
+transforming raw data into enhanced usable data that is clean, relevant, and structured (Chitanand, 
+2023). During preprocessing, we reduce the dimensions, filter irrelevant and unneeded data, and 
+therefore increase the efficiency of the models. During the preprocessing phase, one important step is 
+data cleaning. In our EMG signal classification dataset, we started by filtering out unnecessary data. 
+Specifically, we dropped two classes from the main dataset, classes 0 & 7. Class 0 denoted unmarked 
+data (unclassified data) which mostly consisted of unnecessary gestures captured inaccurately in 
+between. Similarly, class 7 seemed to be insufficient to be added to the database because of its 
+significantly lower occurrences compared to other classes, whereas not all subjects performed this 
+gesture. Thus, we decided to exclude them from our models. Luckily our dataset lacked NULL values 
+that can propose inconsistencies and misleading errors.
+19
+## Used Features:
+Features in AI approaches are divided into 2 main features:
+a) Frequency-domain features
+b) Time-domain features
+Frequency-domain features revolve around taking fast Fourier transform, power-spectral 
+density, autoregressive functions, and other techniques (Bhatti, 2019). Frequency-domain features are 
+not considered in our study, since signals are usually sampled in time-series.
+Time-domain features are well-studied by researchers in the medical and engineering 
+communities. (Toledo-Perez et al., 2019). They include many techniques such as the Mean Absolute 
+Value (MAV), Standard Deviation (SD), Variance (VA), and Root Mean Square (RMS), etc.
+
+## Feature Extraction:
+Feature extraction is a technique that enables us to apply functions that take features of the EMG signals. The EMG signals are represented in time, that’s why our extracted features are timedomain represented by RMS, SSI, Absolute differential signals, Minimum (MIN), and Maximum (MAX). These features are analysed for each gesture.
+## RMS:
+Root Mean Square is a common signal processing feature especially when amplitudes might vary. RMS represents the square root of the average magnitude of the EMG signal’s strength. RMS enables comparison between signals. It works by finding the square of each value in the dataset, then taking the mean of the squared values, and lastly taking the square root of the mean obtained. It can be  expressed as the following:
 
 
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%202st%20test%20-1.PNG">
-</p>
-Now let's type a wrong password for the 2nd time : nothing happens and the door remains closed.
-
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%202st%20test%20-2.PNG">
-</p>
-Now let's type a wrong password for the 3rd time.
-
-<p align="center">
-  <img src="https://github.com/mohamedamine99/Digital-Lock-with-VHDL-state-machine/blob/main/vhdl%20digital%20lock%20results/result%202st%20test%20-3.PNG">
-</p>
-After the 3rd unsuccessfull attempt at typing the correct password , an alarm is triggered and keeps working until the correct password is entered and doors reopens for 13 seconds
-
-  ## Conclusion:
-In this project, we successfullty implemented a VHDL solution for digital Lock with proper functionning and multiple features including : password modification and an alarm system, using a  state machine algorithm . This solution can further implemented on a hardware level.
-  
-  ### Contact:
-* Mail : mohamedamine.benabdeljelil@insat.u-carthage.tn -- mohamedaminebenjalil@yahoo.fr
-* Linked-in profile: https://www.linkedin.com/in/mohamed-amine-ben-abdeljelil-86a41a1a9/
+![image](https://github.com/mhmddorgham/Hand-Movement-Classification-based-on-EMG-Signals-using-Machine-learning-and-Deep-learning/assets/107323201/704d5454-1373-46ba-baff-c7733fee2135)
