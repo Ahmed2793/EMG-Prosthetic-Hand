@@ -2,11 +2,8 @@
 serialPort = 'COM10'; % Change this to your COM port
 baudRate = 115200; % Change this to your baud rate
 s = serialport(serialPort, baudRate);
-
-
-% Set up the serial port for sending power data
-serialPortSend = 'COM9'; % Change this to your second COM port
-sSend = serialport(serialPortSend, 9600);
+ serialPortSend = 'COM9'; % Change this to your second COM port
+ sSend = serialport(serialPortSend, 9600);
 
 % Set up the figure for real-time data
 figure;
@@ -46,7 +43,8 @@ startTime = datetime('now');
 bufferSize = 900; % Number of points to buffer before updating plot
 buffer = nan(bufferSize, 2); % Pre-allocate buffer
 bufferIndex = 1;
-
+power2 = 0;
+prevPower = NaN;
 % Continuously read and plot data
 while ishandle(h)
     % Read data from the serial port
@@ -64,6 +62,7 @@ while ishandle(h)
         % If buffer is full, update plot and reset buffer
         if bufferIndex > bufferSize
             % Update real-time plot
+            
             addpoints(h, buffer(:, 1), buffer(:, 2));
             ax.XLim = datenum([t-seconds(5) t+seconds(1)]);
             datetick('x', 'keeplimits');
@@ -84,7 +83,52 @@ while ishandle(h)
             
             % Calculate and update power plot
             power = var(buffer(:, 2))/1000000; % Variance as a measure of power
-          
+ if ~isnan(prevPower) % Ensure prevPower is valid
+                % Check conditions for power2
+                if prevPower >= 0 && prevPower <= 0.85
+                    if power >= 1.5 && power <= 2.4
+                    power2 = 3;
+                    elseif power >= 2.40 && power <= 3.0
+                    power2 = 4;
+        elseif power >= 3.0 && power <= 3.5
+                    power2 = 6;
+                    elseif power >= 0.9 && power <= 1.5
+                    power2 = 5;
+
+                     else 
+     power2 = 0;
+                    end
+                elseif prevPower >= 0.9 && prevPower <= 1.5
+                    if power >= 1.5 && power <= 2.4
+                    power2 = 3;
+                    elseif power >= 2.40 && power <= 3.0
+                    power2 = 4;
+        elseif power >= 3.0 && power <= 3.5
+                    power2 = 6;
+                     else 
+     power2 = 0;
+                    end
+             elseif prevPower >= 1.5 && prevPower <= 2.4
+                   if power >= 2.40 && power <= 3.0
+                    power2 = 4;
+        elseif power >= 3.0 && power <= 3.5
+                    power2 = 6;
+                     else 
+     power2 = 0;
+                   end     
+
+
+
+                    elseif prevPower >= 2.4 && prevPower <= 3.0
+                  if power >= 3.0 && power <= 3.5
+                    power2 = 6;
+                     else 
+     power2 = 0;
+                    end   
+                end
+                 
+                end
+                
           
             addpoints(powerPlot, datenum(t), power);
             powerAx.XLim = datenum([t-seconds(5) t+seconds(1)]);
@@ -92,13 +136,14 @@ while ishandle(h)
             drawnow;
             
             
-            writeline(sSend, num2str(power));
-            
+             writeline(sSend, num2str(power2));
+            prevPower = power;
             % Reset buffer index
             bufferIndex = 1;
+       
         end
+
     end
 end
-
-% Close the serial ports
+ Close the serial ports
 clear s sSend;
