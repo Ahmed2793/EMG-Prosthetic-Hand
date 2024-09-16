@@ -11,11 +11,18 @@ The hardware setup consists of:
 
 The collected EMG data undergoes filtering and feature extraction, after which machine learning models are trained to classify different hand gestures.
 
+<div align="center">
+<img src="https://github.com/Ahmed2793/EMG-Prosthetic-Hand/blob/main/IMG_20240829_170047.jpg" alt="arm" width="540" height="500">
+</div>
 ## 2. EMG Dataset
 
 The dataset used in this project was captured using EMG electrodes placed on the forearm muscles of 100 subjects. Each subject performed a set of five finger movements, and the corresponding EMG signals were collected at a sampling rate of 3500 Hz. 
 
 Additionally, a custom dataset was collected to experiment with hand gestures using signals from my hand. This data helped refine the models and improve system accuracy.
+
+<div align="center">
+<img src="https://github.com/Ahmed2793/EMG-Prosthetic-Hand/blob/main/Screenshot%20(633).png" alt="arm" width="540" height="500">
+</div>
 
 ## 3. Machine Learning-Based Classification
 
@@ -48,6 +55,9 @@ The preprocessing steps involved several stages:
 - **Feature Extraction**: Post-segmentation, relevant features were extracted.
 
 After filtering, the data matrix consisted of 1938 rows of signals, which were then used for machine learning model training.
+<div align="center">
+<img src="https://github.com/Ahmed2793/EMG-Prosthetic-Hand/blob/main/Screenshot%202024-08-19%20142326.png" alt="arm" width="540" height="500">
+</div>
 
 ## 6. Used Features
 
